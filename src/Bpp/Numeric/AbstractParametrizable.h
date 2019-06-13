@@ -127,14 +127,21 @@ class AbstractParametrizable:
     std::string getParameterNameWithoutNamespace(const std::string& name) const;
 
     /**
+    * @resets the boundaries of a parameter according to given lower andupper bounds
+    */ 
+    void setParameterBounds(const std::string& parName, double lb, double ub)
+    {
+      IntervalConstraint* bounds = new IntervalConstraint(lb, ub, true, true); 
+      getParameter_(parName).setConstraint(bounds, true);
+    }
+
+    /**
      * @brief Notify the class when one or several parameters have changed.
      *
      * @param parameters A ParameterList object with parameters that changed.
      */
   
   virtual void fireParameterChanged(const ParameterList& parameters) {};
-  
-  
 
   protected:
   
